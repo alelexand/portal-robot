@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<h1>Sign in</h1>
+{% if error %}<div class="flash error" id="login-error">{{ error }}</div>{% endif %}
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="username">Username</label>
+  <input id="username" name="username" autocomplete="username">
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="current-password">
+  <div><button class="primary" id="login">Sign in</button></div>
+</form>
+<p class="muted">Demo portal for automation testing. Default account: <code>demo</code> / <code>demo123</code>.</p>
+{% endblock %}

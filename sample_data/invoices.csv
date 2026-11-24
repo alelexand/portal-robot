@@ -1,0 +1,9 @@
+company,supplier_vat,invoice_number,invoice_date,amount,category,notes
+Alpha Foods Lda,PT509876543,FT 2026/1187,2026-10-03,1250.00,Goods,Flour and sugar
+Beta Logistics SA,ES B12345678,F-88213,2026-10-07,389.90,Transport,
+Gamma Retail GmbH,DE812345678,RE-2026-0456,2026-10-12,2140.50,Services,Shop fitting
+Delta Services BV,NL123456789B01,INV-7781,2026-10-15,99.00,Utilities,Internet
+Epsilon Tech SRL,IT12345678901,FAT-332,2026-10-18,4875.00,Services,Software licences
+Alpha Foods Lda,PT12345,FT 2026/1190,2026-10-20,310.00,Goods,VAT number too short
+Beta Logistics SA,ES B87654321,F-88290,2026-10-22,-45.00,Transport,Negative amount
+Alpha Foods Lda,PT509876543,FT 2026/1187,2026-10-03,1250.00,Goods,Same invoice sent twice

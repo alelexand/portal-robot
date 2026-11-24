@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Report{% endblock %}
+{% block content %}
+<h1>{{ kind }} · {{ company }} · {{ job.month }}</h1>
+<p id="status">Preparing your report, please wait…</p>
+<p><a id="download" href="{{ url_for('report_download', job_id=job.id) }}" hidden>Download CSV</a></p>
+<p id="session-expired" class="flash warning" hidden>Your session has expired. <a href="{{ url_for('login') }}">Sign in again</a>.</p>
+<p><a href="{{ url_for('reports') }}">Generate another report</a></p>
+<script>
+  (function poll() {
+    fetch("{{ url_for('report_status', job_id=job.id) }}").then(r => {
+      if (r.status === 401) {
+        document.getElementById("status").textContent = "";
+        document.getElementById("session-expired").hidden = false;
+        return null;
+      }
+      return r.json();
+    }).then(s => {
+      if (!s) return;
+      if (s.ready) {
+        document.getElementById("status").textContent = "Your report is ready.";
+        document.getElementById("download").hidden = false;
+      } else {
+        setTimeout(poll, 400);
+      }
+    });
+  })();
+</script>
+{% endblock %}

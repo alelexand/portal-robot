@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}New invoice request{% endblock %}
+{% block content %}
+<h1>New invoice request</h1>
+{% if errors %}<div class="flash error" id="form-errors">Please correct the highlighted fields.</div>{% endif %}
+<form method="post" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <label for="company">Company</label>
+  <select id="company" name="company">
+    <option value="">-- choose --</option>
+    {% for code, name in companies.items() %}
+    <option value="{{ code }}" {% if values.company == code %}selected{% endif %}>{{ name }}</option>
+    {% endfor %}
+  </select>
+  {% if errors.company %}<div class="field-error" data-field="company">{{ errors.company }}</div>{% endif %}
+
+  <label for="supplier_vat">Supplier VAT number</label>
+  <input id="supplier_vat" name="supplier_vat" value="{{ values.supplier_vat or '' }}" placeholder="PT123456789">
+  {% if errors.supplier_vat %}<div class="field-error" data-field="supplier_vat">{{ errors.supplier_vat }}</div>{% endif %}
+
+  <label for="invoice_number">Invoice number</label>
+  <input id="invoice_number" name="invoice_number" value="{{ values.invoice_number or '' }}">
+  {% if errors.invoice_number %}<div class="field-error" data-field="invoice_number">{{ errors.invoice_number }}</div>{% endif %}
+
+  <label for="invoice_date">Invoice date</label>
+  <input id="invoice_date" name="invoice_date" type="date" value="{{ values.invoice_date or '' }}">
+  {% if errors.invoice_date %}<div class="field-error" data-field="invoice_date">{{ errors.invoice_date }}</div>{% endif %}
+
+  <label for="amount">Amount (EUR)</label>
+  <input id="amount" name="amount" value="{{ values.amount or '' }}" inputmode="decimal">
+  {% if errors.amount %}<div class="field-error" data-field="amount">{{ errors.amount }}</div>{% endif %}
+
+  <label for="category">Category</label>
+  <select id="category" name="category">
+    <option value="">-- choose --</option>
+    {% for c in categories %}<option {% if values.category == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+  </select>
+  {% if errors.category %}<div class="field-error" data-field="category">{{ errors.category }}</div>{% endif %}
+
+  <label for="notes">Notes</label>
+  <textarea id="notes" name="notes" rows="3">{{ values.notes or '' }}</textarea>
+
+  <div><button class="primary" id="submit">Submit request</button></div>
+</form>
+{% endblock %}

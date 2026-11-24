@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Supplier Portal{% endblock %} · Demo Supplier Portal</title>
+  <style>
+    body { margin: 0; font-family: Verdana, Tahoma, sans-serif; font-size: 14px; background: #e9edf2; color: #1f2933; }
+    header { background: #24476b; color: #fff; padding: 10px 20px; display: flex; align-items: center; gap: 24px; }
+    header .brand { font-weight: bold; font-size: 16px; }
+    header nav a { color: #dbe7f3; margin-right: 16px; text-decoration: none; }
+    header nav a:hover { text-decoration: underline; }
+    header form { margin-left: auto; }
+    header button { background: none; border: 1px solid #9fb6cc; color: #fff; padding: 3px 10px; cursor: pointer; }
+    main { max-width: 920px; margin: 24px auto; background: #fff; border: 1px solid #c8d1db; padding: 20px 28px 28px; }
+    h1 { font-size: 20px; color: #24476b; border-bottom: 2px solid #24476b; padding-bottom: 6px; }
+    label { display: block; font-weight: bold; margin: 14px 0 4px; }
+    input, select, textarea { font: inherit; padding: 5px 6px; border: 1px solid #9aa5b1; width: 320px; max-width: 100%; box-sizing: border-box; }
+    button.primary { margin-top: 18px; background: #2f6d3a; color: #fff; border: 0; padding: 7px 18px; font: inherit; cursor: pointer; }
+    .field-error { color: #b42318; font-size: 12px; margin-top: 3px; }
+    .flash { padding: 8px 12px; margin-bottom: 14px; border: 1px solid; }
+    .flash.error { background: #fde8e7; border-color: #f2b8b5; }
+    .flash.warning { background: #fff4d6; border-color: #f1d48a; }
+    .flash.success { background: #e3f4e6; border-color: #a7d7b0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #c8d1db; padding: 6px 8px; text-align: left; }
+    th { background: #eef2f6; }
+    td.num { text-align: right; }
+    .pager { margin-top: 12px; display: flex; gap: 12px; align-items: center; }
+    .muted { color: #616e7c; }
+    .tiles { display: flex; gap: 16px; }
+    .tiles a { flex: 1; border: 1px solid #c8d1db; padding: 16px; text-decoration: none; color: inherit; background: #f7f9fb; }
+    .tiles a strong { display: block; color: #24476b; margin-bottom: 4px; }
+    #protocol { font-size: 22px; font-weight: bold; color: #2f6d3a; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="brand">Demo Supplier Portal</span>
+    {% if session.get('login_at') %}
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Home</a>
+      <a href="{{ url_for('reports') }}" id="nav-reports">Reports</a>
+      <a href="{{ url_for('requests_list') }}" id="nav-requests">Invoice requests</a>
+    </nav>
+    <form method="post" action="{{ url_for('logout') }}"><button>Sign out</button></form>
+    {% endif %}
+  </header>
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

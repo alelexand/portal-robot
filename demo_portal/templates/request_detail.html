@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Request {{ r.protocol }}{% endblock %}
+{% block content %}
+<h1>Request registered</h1>
+<p>Protocol number:</p>
+<p id="protocol">{{ r.protocol }}</p>
+<table>
+  <tr><th>Company</th><td>{{ companies[r.company] }}</td></tr>
+  <tr><th>Supplier VAT</th><td>{{ r.supplier_vat }}</td></tr>
+  <tr><th>Invoice</th><td>{{ r.invoice_number }} · {{ r.invoice_date }}</td></tr>
+  <tr><th>Amount</th><td>€ {{ r.amount }}</td></tr>
+  <tr><th>Category</th><td>{{ r.category }}</td></tr>
+</table>
+<p><a href="{{ url_for('request_new') }}">Register another invoice</a></p>
+{% endblock %}

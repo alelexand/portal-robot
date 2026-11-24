@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1>Reports</h1>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="company">Company</label>
+  <select id="company" name="company">
+    <option value="">-- choose --</option>
+    {% for code, name in companies.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
+  </select>
+  <label for="month">Month</label>
+  <input id="month" name="month" type="month">
+  <label for="report_type">Report</label>
+  <select id="report_type" name="report_type">
+    {% for code, name in report_types.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
+  </select>
+  <div><button class="primary" id="generate">Generate report</button></div>
+</form>
+{% endblock %}

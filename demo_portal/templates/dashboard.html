@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Welcome</h1>
+<div class="tiles">
+  <a href="{{ url_for('reports') }}"><strong>Reports</strong>Generate and download monthly reports.</a>
+  <a href="{{ url_for('request_new') }}"><strong>New invoice request</strong>Register a supplier invoice for approval.</a>
+  <a href="{{ url_for('requests_list') }}"><strong>Invoice requests</strong>{{ total }} requests registered.</a>
+</div>
+{% endblock %}

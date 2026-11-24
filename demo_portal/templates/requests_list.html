@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Invoice requests{% endblock %}
+{% block content %}
+<h1>Invoice requests</h1>
+<form method="get">
+  <input name="q" value="{{ q }}" placeholder="Search protocol, VAT, invoice…" id="search">
+  <button>Search</button>
+  <a href="{{ url_for('request_new') }}" style="margin-left:12px">+ New request</a>
+</form>
+<table id="requests">
+  <thead><tr><th>Protocol</th><th>Company</th><th>Supplier VAT</th><th>Invoice</th><th>Date</th><th>Amount</th><th>Category</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td><a href="{{ url_for('request_detail', protocol=r.protocol) }}">{{ r.protocol }}</a></td>
+      <td>{{ companies[r.company] }}</td><td>{{ r.supplier_vat }}</td><td>{{ r.invoice_number }}</td>
+      <td>{{ r.invoice_date }}</td><td class="num">{{ r.amount }}</td><td>{{ r.category }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7">No requests found.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="pager">
+  {% if page > 1 %}<a id="prev" href="{{ url_for('requests_list', page=page-1, q=q) }}">« Previous</a>{% endif %}
+  <span id="page-info">Page {{ page }} of {{ pages }} · {{ total }} requests</span>
+  {% if page < pages %}<a id="next" href="{{ url_for('requests_list', page=page+1, q=q) }}">Next »</a>{% endif %}
+</div>
+{% endblock %}

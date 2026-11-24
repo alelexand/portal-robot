@@ -1,0 +1,12 @@
+[project]
+name = "portal-robot"
+version = "1.0.0"
+description = "Web robot (RPA) that signs in to a portal, downloads reports and registers invoices, with retries and re-login."
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Alexandre Lasse" }]
+dependencies = ["playwright>=1.40", "flask>=3.0", "openpyxl>=3.1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
